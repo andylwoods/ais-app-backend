@@ -28,16 +28,10 @@ builder.Services.AddSingleton<maS.ILogger>(sp =>
 });
 builder.Services.AddScoped<maS.ITextAnalyzer, maS.TextAnalyzer>();
 
-var port = Environment.GetEnvironmentVariable("PORT") ?? "3000";
-var url = $"http://0.0.0.0:{port}";
-var target = Environment.GetEnvironmentVariable("TARGET") ?? "World";
-
 var app = builder.Build();
 
 app.UseCors("AllowAll");
 
-app.MapGet("/", () => $"Hello {target}!");
-
 app.MapControllers();
 
-app.Run(url);
+app.Run();

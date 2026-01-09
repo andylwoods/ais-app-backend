@@ -18,12 +18,14 @@ namespace myapp.Controllers
         }
 
         [HttpPost]
+        [Consumes("application/json")]
         public IActionResult AnalyzeText([FromBody] TextAnalysisRequest request)
         {
-            if (string.IsNullOrEmpty(request.Text))
+            if (request == null || string.IsNullOrEmpty(request.Text))
             {
-                return BadRequest("Text cannot be null or empty.");
+                return BadRequest("Text property cannot be null or empty in the JSON payload.");
             }
+
             var text = request.Text;
             _logger.Log($"Analyzing text: {text}");
             AnalysisResult result = _textAnalyzer.Analyze(text);
