@@ -18,8 +18,13 @@ namespace myapp.Controllers
         }
 
         [HttpPost]
-        public IActionResult AnalyzeText([FromBody] string text)
+        public IActionResult AnalyzeText([FromBody] TextAnalysisRequest request)
         {
+            if (string.IsNullOrEmpty(request.Text))
+            {
+                return BadRequest("Text cannot be null or empty.");
+            }
+            var text = request.Text;
             _logger.Log($"Analyzing text: {text}");
             AnalysisResult result = _textAnalyzer.Analyze(text);
             _logger.Log($"Analysis result; SlowBikeCount: {result.SlowBikeCount}");
