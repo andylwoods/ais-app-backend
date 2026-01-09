@@ -26,3 +26,4 @@
 /home/user/ais-app-backend/obj/Debug/net9.0/myapp.pdb
 /home/user/ais-app-backend/obj/Debug/net9.0/myapp.genruntimeconfig.cache
 /home/user/ais-app-backend/obj/Debug/net9.0/ref/myapp.dll
+/home/user/ais-app-backend/obj/Debug/net9.0/myapp.sourcelink.json
