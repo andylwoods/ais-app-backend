@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Mvc;
 using myapp.Models;
 using maS = myapp.Services;
 using System;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace myapp.Controllers
 {
@@ -23,37 +26,16 @@ namespace myapp.Controllers
         [HttpPost]
         [Consumes("application/json")]
         [Produces("application/json", "application/xml")]
-        public IActionResult AnalyzeText([FromBody] TextAnalysisRequest request)
+        public async Task<IActionResult> AnalyzeText()
         {
-            if (request == null || string.IsNullOrEmpty(request.Text))
+            using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
             {
-                return BadRequest("Text property cannot be null or empty in the JSON payload.");
+                var requestBody = await reader.ReadToEndAsync();
+                _logger.Log($"Raw request body: {requestBody}");
             }
-
-            var text = request.Text;
-            _logger.Log($"Analyzing text: {text}");
-            AnalysisResult result = _textAnalysisService.Analyze(text);
-            _logger.Log($"Analysis result; SlowBikeCount: {result.SlowBikeCount}");
-
-            if (result.ConsonantCounts != null)
-            {
-                foreach (KeyValuePair<char, int> kvp in result.ConsonantCounts)
-                {
-                    _logger.Log($"Analysis result; Consonant: {kvp.Key}, Count: {kvp.Value}");
-                }
-            }
-
-            if (request.OutputFormat?.ToLower() == "xml")
-            {
-                return new ContentResult
-                {
-                    Content = _serializerService.SerializeToXml(result),
-                    ContentType = "application/xml",
-                    StatusCode = 200
-                };
-            }
-
-            return Ok(result);
+            
+            // For now, we will return a simple message since we can't process the request yet.
+            return Ok("Request body logged.");
         }
     }
 }
