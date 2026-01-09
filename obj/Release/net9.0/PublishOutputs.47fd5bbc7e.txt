@@ -1,0 +1,7 @@
+/home/user/ais-app-backend/bin/Release/net9.0/publish/myapp
+/home/user/ais-app-backend/bin/Release/net9.0/publish/appsettings.Development.json
+/home/user/ais-app-backend/bin/Release/net9.0/publish/appsettings.json
+/home/user/ais-app-backend/bin/Release/net9.0/publish/myapp.dll
+/home/user/ais-app-backend/bin/Release/net9.0/publish/myapp.deps.json
+/home/user/ais-app-backend/bin/Release/net9.0/publish/myapp.runtimeconfig.json
+/home/user/ais-app-backend/bin/Release/net9.0/publish/myapp.pdb
