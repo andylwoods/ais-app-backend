@@ -6,5 +6,8 @@ namespace myapp.Models
     {
         [JsonPropertyName("text")]
         public string? Text { get; set; }
+
+        [JsonPropertyName("outputFormat")]
+        public string? OutputFormat { get; set; }
     }
 }

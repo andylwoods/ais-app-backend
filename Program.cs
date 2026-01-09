@@ -1,36 +1,23 @@
-using maS = myapp.Services;
+using myapp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
-
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowAll",
-        builder =>
-        {
-            builder.AllowAnyOrigin()
-                   .AllowAnyHeader()
-                   .AllowAnyMethod();
-        });
-});
-
-builder.Services.AddSingleton<maS.ConsoleLogger>();
-builder.Services.AddSingleton<maS.DatabaseLogger>();
-builder.Services.AddSingleton<maS.ILogger>(sp =>
-{
-    return new maS.MultiLogger(new maS.ILogger[]
-    {
-        sp.GetRequiredService<maS.ConsoleLogger>(),
-        sp.GetRequiredService<maS.DatabaseLogger>()
-    });
-});
-builder.Services.AddScoped<maS.ITextAnalyzer, maS.TextAnalyzer>();
+builder.Services.AddScoped<ITextAnalyzer, TextAnalyzer>();
+builder.Services.AddSingleton<ISerializerService, SerializerService>();
 
 var app = builder.Build();
 
-app.UseCors("AllowAll");
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseDeveloperExceptionPage();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
 
 app.MapControllers();
 
