@@ -12,7 +12,7 @@ namespace myapp.Services
             _logger = logger;
         }
 
-        public AnalysisResult Analyze(string text)
+        public AnalysisResult Analyze(string? text)
         {
             try
             {
@@ -21,7 +21,7 @@ namespace myapp.Services
                     return new AnalysisResult();
                 }
 
-                var result = new AnalysisResult() { ConsonantCounts = new Dictionary<char, int>() };
+                var result = new AnalysisResult();
 
                 // Count "slow bike"
                 result.SlowBikeCount = Regex.Matches(text, "slow bike", RegexOptions.IgnoreCase).Count;

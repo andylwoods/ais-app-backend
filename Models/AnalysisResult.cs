@@ -9,27 +9,22 @@ namespace myapp.Models
         public int SlowBikeCount { get; set; }
 
         [XmlIgnore]
-        public Dictionary<char, int>? ConsonantCounts { get; set; }
+        public Dictionary<char, int> ConsonantCounts { get; set; } = new Dictionary<char, int>();
 
         [JsonIgnore]
         [XmlArray("consonantCounts")]
         [XmlArrayItem("consonant")]
-        public ConsonantCount[]? SerializableConsonantCounts
+        public ConsonantCount[] SerializableConsonantCounts
         {
             get
             {
-                if (ConsonantCounts == null)
-                {
-                    return null;
-                }
-
                 return ConsonantCounts.Select(kvp => new ConsonantCount { Consonant = kvp.Key.ToString(), Count = kvp.Value }).ToArray();
             }
             set
             {
                 if (value == null)
                 {
-                    ConsonantCounts = null;
+                    ConsonantCounts = new Dictionary<char, int>();
                 }
                 else
                 {
@@ -42,7 +37,7 @@ namespace myapp.Models
     public class ConsonantCount
     {
         [XmlElement("letter")]
-        public string Consonant { get; set; }
+        public string Consonant { get; set; } = string.Empty;
 
         [XmlElement("count")]
         public int Count { get; set; }

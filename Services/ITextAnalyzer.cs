@@ -4,6 +4,6 @@ namespace myapp.Services
 {
     public interface ITextAnalyzer
     {
-        AnalysisResult Analyze(string text);
+        AnalysisResult Analyze(string? text);
     }
 }

@@ -1,5 +1,7 @@
 /home/user/ais-app-backend/bin/Debug/net9.0/appsettings.Development.json
 /home/user/ais-app-backend/bin/Debug/net9.0/appsettings.json
+/home/user/ais-app-backend/bin/Debug/net9.0/myapp.Tests/obj/myapp.Tests.csproj.nuget.dgspec.json
+/home/user/ais-app-backend/bin/Debug/net9.0/myapp.Tests/obj/project.assets.json
 /home/user/ais-app-backend/bin/Debug/net9.0/myapp.staticwebassets.endpoints.json
 /home/user/ais-app-backend/bin/Debug/net9.0/myapp
 /home/user/ais-app-backend/bin/Debug/net9.0/myapp.deps.json
@@ -11,6 +13,7 @@
 /home/user/ais-app-backend/obj/Debug/net9.0/myapp.AssemblyInfo.cs
 /home/user/ais-app-backend/obj/Debug/net9.0/myapp.csproj.CoreCompileInputs.cache
 /home/user/ais-app-backend/obj/Debug/net9.0/myapp.MvcApplicationPartsAssemblyInfo.cache
+/home/user/ais-app-backend/obj/Debug/net9.0/myapp.sourcelink.json
 /home/user/ais-app-backend/obj/Debug/net9.0/scopedcss/bundle/myapp.styles.css
 /home/user/ais-app-backend/obj/Debug/net9.0/staticwebassets.build.json
 /home/user/ais-app-backend/obj/Debug/net9.0/staticwebassets.development.json
@@ -26,4 +29,3 @@
 /home/user/ais-app-backend/obj/Debug/net9.0/myapp.pdb
 /home/user/ais-app-backend/obj/Debug/net9.0/myapp.genruntimeconfig.cache
 /home/user/ais-app-backend/obj/Debug/net9.0/ref/myapp.dll
-/home/user/ais-app-backend/obj/Debug/net9.0/myapp.sourcelink.json

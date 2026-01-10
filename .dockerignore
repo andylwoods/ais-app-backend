@@ -1,0 +1,5 @@
+myapp.Tests
+*.Tests
+obj/
+bin/
+firebase-debug.log
