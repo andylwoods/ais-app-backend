@@ -23,7 +23,7 @@ namespace myapp.Models
                     return null;
                 }
 
-                return ConsonantCounts.Select(kvp => new ConsonantCount { Consonant = kvp.Key, Count = kvp.Value }).ToArray();
+                return ConsonantCounts.Select(kvp => new ConsonantCount { Consonant = kvp.Key.ToString(), Count = kvp.Value }).ToArray();
             }
             set
             {
@@ -33,7 +33,7 @@ namespace myapp.Models
                 }
                 else
                 {
-                    ConsonantCounts = value.ToDictionary(cc => cc.Consonant, cc => cc.Count);
+                    ConsonantCounts = value.ToDictionary(cc => cc.Consonant[0], cc => cc.Count);
                 }
             }
         }
@@ -41,8 +41,8 @@ namespace myapp.Models
 
     public class ConsonantCount
     {
-        [XmlElement("char")]
-        public char Consonant { get; set; }
+        [XmlElement("letter")]
+        public string Consonant { get; set; }
 
         [XmlElement("count")]
         public int Count { get; set; }

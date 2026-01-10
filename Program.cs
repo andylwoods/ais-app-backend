@@ -1,11 +1,22 @@
-using myapp.Services;
+using maS = myapp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                   .AllowAnyMethod()
+                   .AllowAnyHeader();
+        });
+});
 builder.Services.AddControllers();
-builder.Services.AddScoped<ITextAnalyzer, TextAnalyzer>();
-builder.Services.AddSingleton<ISerializerService, SerializerService>();
+builder.Services.AddScoped<maS.ITextAnalyzer, maS.TextAnalyzer>();
+builder.Services.AddSingleton<maS.ISerializerService, maS.SerializerService>();
+builder.Services.AddSingleton<maS.ILogger, maS.ConsoleLogger>();
 
 var app = builder.Build();
 
@@ -16,6 +27,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors("AllowAll");
 
 app.UseAuthorization();
 

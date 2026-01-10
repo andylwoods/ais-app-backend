@@ -2,9 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using myapp.Models;
 using maS = myapp.Services;
 using System;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace myapp.Controllers
 {
@@ -26,16 +24,44 @@ namespace myapp.Controllers
         [HttpPost]
         [Consumes("application/json")]
         [Produces("application/json", "application/xml")]
-        public async Task<IActionResult> AnalyzeText()
+        public IActionResult AnalyzeText([FromBody] TextAnalysisRequest request)
         {
-            using (StreamReader reader = new StreamReader(Request.Body, Encoding.UTF8))
+            if (request == null)
             {
-                var requestBody = await reader.ReadToEndAsync();
-                _logger.Log($"Raw request body: {requestBody}");
+                _logger.Log("Request object is null after JSON deserialization.");
+                return BadRequest("The JSON payload could not be deserialized or is malformed.");
             }
-            
-            // For now, we will return a simple message since we can't process the request yet.
-            return Ok("Request body logged.");
+
+            _logger.Log($"Received request with OutputFormat: '{request.OutputFormat}'");
+            if (string.IsNullOrEmpty(request.Text))
+            {
+                return BadRequest("Text property cannot be null or empty in the JSON payload.");
+            }
+
+            var text = request.Text;
+            _logger.Log($"Analyzing text: {text}");
+            AnalysisResult result = _textAnalysisService.Analyze(text);
+            _logger.Log($"Analysis result; SlowBikeCount: {result.SlowBikeCount}");
+
+            if (result.ConsonantCounts != null)
+            {
+                foreach (KeyValuePair<char, int> kvp in result.ConsonantCounts)
+                {
+                    _logger.Log($"Analysis result; Consonant: {kvp.Key}, Count: {kvp.Value}");
+                }
+            }
+
+            if (request.OutputFormat?.ToLower() == "xml")
+            {
+                return new ContentResult
+                {
+                    Content = _serializerService.SerializeToXml(result),
+                    ContentType = "application/xml",
+                    StatusCode = 200
+                };
+            }
+
+            return Ok(result);
         }
     }
 }
