@@ -14,6 +14,8 @@ builder.Services.AddCors(options =>
         });
 });
 builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<maS.ITextAnalyzer, maS.TextAnalyzer>();
 builder.Services.AddSingleton<maS.ISerializerService, maS.SerializerService>();
 builder.Services.AddSingleton<maS.ILogger, maS.ConsoleLogger>();
@@ -21,10 +23,8 @@ builder.Services.AddSingleton<maS.ILogger, maS.ConsoleLogger>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseDeveloperExceptionPage();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseHttpsRedirection();
 
